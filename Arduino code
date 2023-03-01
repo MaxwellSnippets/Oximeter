@@ -1,0 +1,75 @@
+//Initialisation settings
+//code by maxwell wamaitha, reachout on maxriscyberspace@gmail.com for more projects
+#include <Wire.h> 
+#include <LiquidCrystal_I2C.h>
+LiquidCrystal_I2C lcd(0x27,20,4);  
+
+
+void setup() 
+{ 
+ pinMode(A0, INPUT);
+ pinMode(13, OUTPUT);
+ Serial.begin(9600);
+ 
+  lcd.init();                   
+  lcd.init(); 
+  lcd.backlight();
+  lcd.setCursor(0,0);
+  lcd.print(" hello welcome");
+  lcd.setCursor(1,1);
+  lcd.print("Made in MFA");
+  delay(5000);
+lcd.init();                   
+  lcd.init(); 
+  lcd.backlight();
+  lcd.setCursor(0,0);
+  lcd.print("Hello ");
+  lcd.setCursor(1,1);
+  lcd.print("Place finger");
+  delay(5000);
+    float pulse;
+  int sum = 0;
+  for (int i = 0; i < 20; i++)
+    sum += analogRead(A0);
+  pulse = sum / 20.00 - 10 ;
+  Serial.println(pulse);
+
+ 
+}
+
+void loop() {
+  //`code for the HB sensor
+   float pulse;
+  int sum = 0;
+  for (int i = 0; i < 20; i++)
+    sum += analogRead(A0);
+  pulse = sum / 20.00 -10 + 60;
+  Serial.println(pulse);
+ 
+
+  //code for the LCD
+  lcd.clear();
+  lcd.setCursor(0,0);
+  lcd.print("Your pulse is at ");
+  lcd.setCursor(1,1);
+  lcd.print(pulse);
+   lcd.setCursor(1,7);
+
+//code for the led
+  if(pulse  > 110)
+  {
+    digitalWrite(13,HIGH);
+   
+    }
+    else if(pulse < 4)
+    {
+    digitalWrite(13,HIGH);
+   
+    }
+    else
+    {
+    digitalWrite(13,LOW);
+    
+    }
+    
+}
